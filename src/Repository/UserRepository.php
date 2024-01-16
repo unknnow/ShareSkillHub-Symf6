@@ -39,20 +39,40 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return User[] Returns an array of User objects
+     */
+    public function findByDisplayName($value, $connectedUser = null): array
+    {
+        $query = $this->createQueryBuilder('u')
+            ->andWhere("CONCAT(u.lastName, ' ', u.firstName) LIKE '%$value%'")
+            ->andWhere("u.roles NOT LIKE 'ROLE_ADMIN'")
+            ->orderBy('u.id', 'ASC');
+
+        if ($connectedUser != null) {
+            $query->andWhere("u.email != :email")->setParameter('email', $connectedUser->getEmail());
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @return User[] Returns an array of User objects
+     */
+    public function findUsers($admin = false, $connectedUser = null): array
+    {
+        $query = $this->createQueryBuilder('u');
+
+        if ($admin) {
+            $query->andWhere("u.roles NOT LIKE 'ROLE_ADMIN'");
+        }
+
+        if ($connectedUser != null) {
+            $query->andWhere("u.email != :email")->setParameter('email', $connectedUser->getEmail());
+        }
+
+        return $query->getQuery()->getResult();
+    }
 
 //    public function findOneBySomeField($value): ?User
 //    {
