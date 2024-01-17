@@ -12,7 +12,12 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+
     <body>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ include('navbar/navbarhtml.twig') }}
+         {% endif %}
+        
         {% block body %}{% endblock %}
     </body>
 </html>

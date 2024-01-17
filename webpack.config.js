@@ -70,6 +70,11 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
 
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name]-[hash:8].[ext]',
+    })
+
     .enablePostCssLoader((options) => {
         options.postcssOptions = {
         // the directory where the postcss.config.js file is stored
