@@ -12,10 +12,10 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                     <h3 class="d-flex justify-content-start align-items-center"><span class="material-icons-outlined me-2">view_timeline</span> Mes sessions :</h3>
-                    <a class="btn btn-primary" href="{{ path('app_session_new') }}">Créer une nouvelle session</a>
+                    <a class="btn btn-custom-blue" href="{{ path('app_session_new') }}">Créer une nouvelle session</a>
                 </div>
 
-                <div class="row row-cols-3 justify-content-md-center mt-2">
+                <div class="row row-cols-2 justify-content-md-center mt-2">
                     {% for session in user.createdSessions %}
                         <div class="col pb-4">
                             {{ include('user/_sessionCard.html.twig') }}
