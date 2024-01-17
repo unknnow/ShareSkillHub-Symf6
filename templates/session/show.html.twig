@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Session{% endblock %}
+
+{% block body %}
+    <div class="container my-4">
+        <div class="card border-0 shadow">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h3>{{ session.subject }}</h3>
+
+                    {% if session.ownerUser.id != app.user.id %}
+                        {% if hasJoinedSession == false %}
+                        <a class="btn btn-sm btn-warning text-white" href="{{ path('app_session_join', {'id': session.id}) }}">Participer</a>
+                        {% else %}
+                        <a class="btn btn-sm btn-danger text-white" href="{{ path('app_session_leave', {'id': session.id}) }}">Ne plus participer</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <p>{{ session.description }}</p>
+
+                <hr>
+
+                <h3 class="d-flex justify-content-start align-items-center"><span class="material-icons me-2">group</span> Participants ({{ session.participantUser|length }})</h3>
+
+                <div class="row g-1">
+                    {% for user in session.participantUser %}
+                        <div class="col-3">
+                            <a class="text-decoration-none" href="{{ path('app_user_consultation', {'id' : user.id}) }}">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-start align-items-center me-4">
+                                            <img src="{{ user.avatar }}" alt="Avatar" class="rounded-circle bg-secondary text-secondary" style="width: 4rem; height: 4rem;">
+                                            <h5 class="ms-2">{{ user.displayName }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <hr>
+
+                <h3 class="d-flex justify-content-start align-items-center"><span class="material-icons-outlined me-2">star_rate</span> Notes</h3>
+
+                {% if session.notations|length > 0 %}
+                    <div class="row g-2">
+                        {% for notation in session.notations %}
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ notation.ownerUser.displayName }}</h5>
+                                        <p class="card-text mb-2">{{ notation.note }}/5</p>
+                                        <p class="card-text mb-2">{{ notation.comment }}</p>
+                                        <small class="text-muted">{{ notation.timestamp|date('d/m/y H:i') }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Aucune Notes</p>
+                {% endif %}
+
+                {% if alreadySendNotation != true %}
+                    <div class="d-flex justify-content-center align-items-center">
+                        <hr class="w-75">
+                    </div>
+
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5>Ajouter une note</h5>
+
+                            {{ form_start(notationForm) }}
+
+                            {{ form_row(notationForm.note, {'attr': {'class': 'w-25'}}) }}
+
+                            {{ form_row(notationForm.comment) }}
+
+                            <div class="d-flex justify-content-center align-items-center">
+                                <button class="btn btn-primary" type="submit">Envoyer</button>
+                            </div>
+
+                            {{ form_end(notationForm) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
