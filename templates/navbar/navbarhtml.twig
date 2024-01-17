@@ -16,7 +16,7 @@
                 </li>
 
                 <li class="nav-item mx-2 {% if app.request.attributes.get('_route') == 'app_session_index' %}active{% endif %}">
-                    {# <a class="nav-link" href="{{ path('app_session_index') }}">Sessions</a> #}
+                     <a class="nav-link" href="{{ path('app_session_index') }}">Sessions</a>
                 </li>
 
                 {% if is_granted('ROLE_ADMIN') %}

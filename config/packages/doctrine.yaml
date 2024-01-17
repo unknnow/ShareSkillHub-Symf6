@@ -21,6 +21,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        dql:
+            datetime_functions:
+                date: DoctrineExtensions\Query\Mysql\Date
+                now: DoctrineExtensions\Query\Mysql\Now
+                time: DoctrineExtensions\Query\Mysql\Time
 
 when@test:
     doctrine:

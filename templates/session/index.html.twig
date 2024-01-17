@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les sessions{% endblock %}
+
+{% block body %}
+    <div class="container my-4">
+        <div class="card border-0 shadow">
+            <div class="card-body p-4">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="d-flex justify-content-start align-items-center">
+                            <span class="material-icons-outlined me-2">view_timeline</span>
+                            Les sessions :
+                        </h3>
+                    </div>
+
+                    <div class="col-4">
+                        {{ include('user/_userSearch.html.twig') }}
+                    </div>
+                </div>
+
+                <div class="row g-1">
+                    <div class="col-1">
+                        <a class="btn btn-sm btn-secondary w-100 d-flex justify-content-center align-items-center"
+                           href="{{ path('app_session_index', {'date': days|first|date('d-m-Y'), 'action': 'previous'}) }}">
+                            <span class="material-icons-outlined">navigate_before</span>
+                        </a>
+                    </div>
+
+                    {% for day in days %}
+                        <div class="col">
+                            <a class="btn btn-sm d-flex justify-content-center align-items-center w-100 h-100 {% if dayDate|date('d/m/Y') == day|date('d/m/Y') %}btn-primary{% else %}btn-secondary{% endif%}"
+                               href="{{ path('app_session_index', {'date': day|date('d-m-Y')}) }}">
+                                {{ day|date('l', "Europe/Paris") }} {{ day|date('d/m', "Europe/Paris") }}
+                            </a>
+                        </div>
+                    {% endfor %}
+
+                    <div class="col-1">
+                        <a class="btn btn-sm btn-secondary w-100 d-flex justify-content-center align-items-center"
+                           href="{{ path('app_session_index', {'date': days|last|date('d-m-Y'), 'action': 'next'}) }}">
+                            <span class="material-icons-outlined">navigate_next</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row mt-3 g-2">
+                    {% if sessions|length > 0 %}
+                        {% for session in sessions %}
+                            <div class="col-12">
+                                {{ include('session/_sessionCard.html.twig') }}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <p>Aucune sessions</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
