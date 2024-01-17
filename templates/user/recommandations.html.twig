@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes sessions{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="card border-0 shadow">
+            <div class="card-body p-4">
+                {{ include('user/_userHeader.html.twig') }}
+
+                <hr>
+
+                <h3 class="d-flex justify-content-start align-items-center"><span class="material-icons-outlined me-2">star_rate</span> Mes recommandations :</h3>
+
+                {% if user.recommandations|length > 0 %}
+                    <div class="row g-2">
+                        {% for recommandation in user.recommandations %}
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ recommandation.senderUser.displayName }}</h5>
+                                        <p class="card-text mb-2">{{ recommandation.content }}</p>
+                                        <small class="text-muted">{{ recommandation.timestamp|date('d/m/y H:i') }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Aucune recommandations</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

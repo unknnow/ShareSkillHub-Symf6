@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes compétences{% endblock %}
+
+{% block body %}
+    <div class="container my-4">
+        <div class="card border-0 shadow">
+            <div class="card-body p-4">
+                {{ include('user/_userHeader.html.twig') }}
+
+                <hr>
+
+                <h5>Ajouter une compétence :</h5>
+
+                {{ form_start(form) }}
+                <div class="row g-2">
+                    <div class="col-4">
+                        {{ form_row(form.skill) }}
+                    </div>
+
+                    <div class="col">
+                        <button class="btn btn-success" type="submit">Ajouter</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+
+                <div class="row d-flex justify-content-center my-4">
+                    <hr class="w-50">
+                </div>
+
+                <h5 class="d-flex justify-content-start align-items-center"><span class="material-icons-outlined me-2">military_tech</span> Mes compétences :</h5>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Compétence</th>
+                        <th scope="col">Catégorie</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% if user.skills|length > 0 %}
+                        {% for skill in user.skills %}
+                            <tr>
+                                <td>{{ skill.name }}</td>
+                                <td>{% if skill.category is not null %}{{ skill.category.name }}{% else %}Autre{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <th scope="row" colspan="999">Aucune compétence</th>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{{ form_start(form) }}
+
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.lastName, {'attr': {'disabled': editable}}) }}
+    </div>
+    <div class="col-md">
+        {{ form_row(form.firstName, {'attr': {'disabled': editable}}) }}
+    </div>
+</div>
+
+{{ form_row(form.address, {'attr': {'disabled': editable}}) }}
+
+<div class="row">
+    <div class="col-md-5">
+        {{ form_row(form.city, {'attr': {'disabled': editable}}) }}
+    </div>
+
+    <div class="col-md-2">
+        {{ form_row(form.postalCode, {'attr': {'disabled': editable}}) }}
+    </div>
+
+    <div class="col-md-5">
+        {{ form_row(form.country, {'attr': {'disabled': editable}}) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.avatar, {'attr': {'disabled': editable}}) }}
+    </div>
+    <div class="col-md">
+        {{ form_row(form.job, {'attr': {'disabled': editable}}) }}
+    </div>
+</div>
+
+{{ form_row(form.about, {'attr': {'disabled': editable}}) }}
+
+{% if editable != true %}
+<div class="row d-flex justify-content-center my-2">
+    <button class="btn btn-primary border-0 me-2" style="width: 10rem" type="submit">Sauvegarder</button>
+    <a class="btn btn-secondary border-0 ms-2" style="width: 10rem" href="{{ path('app_user_profil_show', {id: user.id}) }}">Annuler</a>
+</div>
+{% else %}
+<div class="row d-flex justify-content-center my-2">
+    <a class="btn btn-primary border-0 w-25" href="{{ path('app_user_profil_edit', {id: user.id}) }}">Modifier</a>
+</div>
+{% endif %}
+
+{{ form_end(form) }}
