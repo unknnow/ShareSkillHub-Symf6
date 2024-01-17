@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+    <div class="container my-4">
+        <div class="card border-0 shadow">
+            <div class="card-body p-4">
+                {{ include('user/_userHeader.html.twig') }}
+
+                <hr>
+
+                <h3 class="d-flex justify-content-start align-items-center"><span class="material-icons-outlined me-2">info</span> Informations</h3>
+
+                <p>Adresse : {{ user.address }}, {{ user.city }} {{ user.postalCode }}, {{ user.country }}</p>
+
+                <p>Métier : {{ user.job }}</p>
+
+                <p>À propos : {{ user.about }}</p>
+
+                <hr>
+
+                <h3 class="d-flex justify-content-start align-items-center"><span class="material-icons-outlined me-2">military_tech</span> Compétences</h3>
+
+                <div class="accordion" id="accordionSkills">
+                    {% for category in categories %}
+                        <div class="accordion-item {% if loop.first %}show{% endif %}">
+                            <h2 class="accordion-header" id="heading-{{ category.name }}">
+                                <button class="accordion-button {% if not loop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse-{{ category.name }}" aria-controls="collapse-{{ category.name }}"
+                                        aria-expanded="{% if loop.first %}true{% else %}false{% endif %}">
+                                    {{ category.name }}
+                                </button>
+                            </h2>
+
+                            <div id="collapse-{{ category.name }}" class="accordion-collapse collapse {% if loop.first %}show{% endif %}" aria-labelledby="heading-{{ category.name }}" data-bs-parent="#accordionSkills">
+                                <div class="accordion-body">
+                                    {% for skill in category.skills %}
+                                        <span class="badge" style="background-color: {{ category.color }}">
+                                    {{ skill }}
+                                </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <hr>
+
+                {% set numberOfSessionCreated = user.createdSessions|length %}
+
+                {% if numberOfSessionCreated > 0 %}
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="row mb-2">
+                            <div class="col-12 d-flex justify-content-start align-items-center">
+                                <h3 class="d-flex justify-content-start align-items-center"><span class="material-icons-outlined me-2">view_timeline</span> Sessions ({{ numberOfSessionCreated }})</h3>
+                            </div>
+                        </div>
+
+                        <div class="carousel-inner">
+                            {% for i in 0..(numberOfSessionCreated//3) - 1 %}
+                                <div class="carousel-item {% if i == 0 %}active{% endif %}" data-bs-interval="999999">
+                                    <div class="row">
+                                        {% for j in 0..2 %}
+                                            {% set index = 3*i + j %}
+                                            {% if user.createdSessions[index] is defined %}
+                                                <div class="col-md-4 mb-3">
+                                                    {{ include('user/_sessionCard.html.twig', {'session': user.createdSessions[index]}) }}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                <button class="btn btn-sm btn-primary d-flex justify-content-center align-items-center me-2" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span class="material-icons-outlined">navigate_before</span>
+                                </button>
+
+                                <button class="btn btn-sm btn-primary d-flex justify-content-center align-items-center" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span class="material-icons-outlined">navigate_next</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <h3 class="d-flex justify-content-start align-items-center"><span class="material-icons-outlined me-2">view_timeline</span> Sessions</h3>
+
+                    <p>Aucune de sessions</p>
+                {% endif %}
+
+                <hr>
+
+                <h3 class="d-flex justify-content-start align-items-center"><span class="material-icons-outlined me-2">star_rate</span> Recommandations</h3>
+
+                {% if user.recommandations|length > 0 %}
+                    <div class="row g-2">
+                        {% for recommandation in user.recommandations %}
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ recommandation.senderUser.displayName }}</h5>
+                                        <p class="card-text mb-2">{{ recommandation.content }}</p>
+                                        <small class="text-muted">{{ recommandation.timestamp|date('d/m/y H:i') }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Aucune recommandations</p>
+                {% endif %}
+
+                {% if alreadySendRecommandation != true %}
+                    <div class="d-flex justify-content-center align-items-center">
+                        <hr class="w-75">
+                    </div>
+
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5>Ajouter une recommandation</h5>
+
+                            {{ form_start(recommandationForm) }}
+
+                            {{ form_row(recommandationForm.content) }}
+
+                            <div class="d-flex justify-content-center align-items-center">
+                                <button class="btn btn-primary" type="submit">Envoyer</button>
+                            </div>
+
+                            {{ form_end(recommandationForm) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

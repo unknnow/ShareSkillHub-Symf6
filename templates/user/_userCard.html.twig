@@ -1,0 +1,59 @@
+<a href="{{ path('app_user_consultation', {'id': user.id}) }}" class="d-flex justify-content-center text-decoration-none link-dark">
+    <div class="d-flex justify-content-center align-items-center me-4">
+        <img src="{{ user.avatar }}" alt="Avatar" class="rounded-circle bg-secondary text-secondary" style="width: 7rem; height: 7rem;">
+    </div>
+
+    <div class="card-body">
+        <h2>{{ user.displayName }}</h2>
+
+        <p><strong>Métier : </strong> {{ user.job }} </p>
+
+        <p><strong>À propos : </strong> {{ user.about }} </p>
+
+        <p><strong>Compétences : </strong>
+            {% for skill in user.skills %}
+                <span class="badge" style="background-color: {% if skill.category is not null %}{{ skill.category.color }}{% else %}lightgray{% endif %}">
+                    {{ skill.name }}
+                </span>
+            {% endfor %}
+        </p>
+    </div>
+</a>
+
+{#<div class="col-md-8 col-lg-6">#}
+{#    <hr class="divider">#}
+
+{#    <div class="row text-center mb-2">#}
+{#        <div class="col-md-4 emphasis">#}
+{#            <h2><strong>20.7K</strong></h2>#}
+{#            <p><small>Followers</small></p>#}
+{#            <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Follow </button>#}
+{#        </div>#}
+
+{#        <div class="col-md-4 emphasis">#}
+{#            <h2><strong>245</strong></h2>#}
+{#            <p><small>Following</small></p>#}
+{#            <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile </button>#}
+{#        </div>#}
+
+{#        <div class="col-md-4 emphasis">#}
+{#            <h2><strong>43</strong></h2>#}
+{#            <p><small>Snippets</small></p>#}
+{#            <div class="btn-group dropup btn-block">#}
+{#                <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Options </button>#}
+{#                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">#}
+{#                    <span class="caret"></span>#}
+{#                    <span class="visually-hidden">Toggle Dropdown</span>#}
+{#                </button>#}
+{#                <ul class="dropdown-menu text-start" role="menu">#}
+{#                    <li><a href="#"><span class="fa fa-envelope pull-end"></span> Send an email </a></li>#}
+{#                    <li><a href="#"><span class="fa fa-list pull-end"></span> Add or remove from a list </a></li>#}
+{#                    <li class="divider"></li>#}
+{#                    <li><a href="#"><span class="fa fa-warning pull-end"></span> Report this user for spam</a></li>#}
+{#                    <li class="divider"></li>#}
+{#                    <li><a href="#" class="btn disabled" role="button"> Unfollow </a></li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}

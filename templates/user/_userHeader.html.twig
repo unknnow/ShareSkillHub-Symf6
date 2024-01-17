@@ -1,0 +1,6 @@
+<div class="d-flex align-items-center">
+    <img class="rounded-circle bg-secondary text-secondary" style="width: 7rem; height: 7rem" alt="avatar"
+         src="{% if user.avatar is not null %}{{ user.avatar }}{% endif %}" />
+
+    <h1 class="ms-4">{{ user.displayName }}</h1>
+</div>
