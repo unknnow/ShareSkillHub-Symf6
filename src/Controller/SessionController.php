@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Notation;
 use App\Entity\Session;
 use App\Form\NotationFormType;
+use App\Form\SessionFormType;
 use App\Repository\SessionRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,6 +37,26 @@ class SessionController extends AbstractController
             'sessions' => $sessions,
             'days' => $days,
             'dayDate' => $date
+        ]);
+    }
+
+    #[Route('/new', name: 'app_session_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $session = new Session();
+        $form = $this->createForm(SessionFormType::class, $session);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($session);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_session_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('session/new.html.twig', [
+            'session' => $session,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -95,6 +116,35 @@ class SessionController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('app_session_show', ['id' => $session->getId()]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_session_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Session $session, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(SessionFormType::class, $session);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_user_sessions', ['id' => $this->getUser()->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('session/edit.html.twig', [
+            'session' => $session,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_session_delete', methods: ['POST'])]
+    public function delete(Request $request, Session $session, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$session->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($session);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_session_index', [], Response::HTTP_SEE_OTHER);
     }
 
     private function getDaysOfWeek($date): array

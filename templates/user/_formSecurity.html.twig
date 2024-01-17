@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.email, {'attr': {'disabled': editable}}) }}
+    </div>
+    <div class="col-md">
+        {{ form_row(form.password, {'attr': {'disabled': editable}}) }}
+    </div>
+</div>
+
+{% if editable != true %}
+<div class="row d-flex justify-content-center my-2">
+    <button class="btn btn-primary border-0 me-2" style="width: 10rem" type="submit">Sauvegarder</button>
+    <a class="btn btn-secondary border-0 ms-2" style="width: 10rem" href="{{ path('app_user_security_show', {id: user.id}) }}">Annuler</a>
+</div>
+{% else %}
+    <div class="row d-flex justify-content-center my-2">
+        <a class="btn btn-primary border-0 me-2" style="width: 10rem" href="{{ path('app_user_security_edit', {'id': user.id}) }}">Modifier</a>
+        <a class="btn btn-danger border-0 ms-2" style="width: 10rem" href="#">Supprimer</a>
+        {# {{ include('user/_delete_form.html.twig') }} #}
+    </div>
+{% endif %}
+
+{{ form_end(form) }}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma sécurité{% endblock %}
+
+{% block body %}
+    <div class="container my-4">
+        <div class="card border-0 shadow">
+            <div class="card-body p-4">
+                {{ include('user/_userHeader.html.twig') }}
+
+                <hr>
+
+                <h3>Sécurité</h3>
+
+                {% if type == 'edit' %}{% set editable = false %}{% else %}{% set editable = true %}{% endif %}
+                {{ include('user/_formSecurity.html.twig', {'editable': editable}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

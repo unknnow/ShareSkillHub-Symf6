@@ -1,0 +1,28 @@
+{{ form_start(form) }}
+
+{{ form_row(form.subject) }}
+
+{{ form_row(form.description) }}
+
+<div class="row">
+    <div class="col">
+        {{ form_row(form.type) }}
+    </div>
+
+    <div class="col">
+        {{ form_row(form.startTime) }}
+    </div>
+
+    <div class="col">
+        {{ form_row(form.endTime) }}
+    </div>
+</div>
+
+{{ form_row(form.participantUser) }}
+
+<div class="row d-flex justify-content-center my-2">
+    <button class="btn btn-primary border-0 me-2" style="width: 10rem" type="submit">Valider</button>
+    <a class="btn btn-secondary border-0 ms-2" style="width: 10rem" href="{{ app.request.headers.get('referer') }}">Annuler</a>
+</div>
+
+{{ form_end(form) }}
