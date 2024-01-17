@@ -21,7 +21,7 @@
 
                 <div class="row g-1">
                     <div class="col-1">
-                        <a class="btn btn-sm btn-secondary w-100 d-flex justify-content-center align-items-center"
+                        <a class="btn btn-sm btn-custom-dark-blue w-100 d-flex justify-content-center align-items-center"
                            href="{{ path('app_session_index', {'date': days|first|date('d-m-Y'), 'action': 'previous'}) }}">
                             <span class="material-icons-outlined">navigate_before</span>
                         </a>
@@ -29,7 +29,7 @@
 
                     {% for day in days %}
                         <div class="col">
-                            <a class="btn btn-sm d-flex justify-content-center align-items-center w-100 h-100 {% if dayDate|date('d/m/Y') == day|date('d/m/Y') %}btn-primary{% else %}btn-secondary{% endif%}"
+                            <a class="btn btn-sm d-flex justify-content-center align-items-center w-100 h-100 {% if dayDate|date('d/m/Y') == day|date('d/m/Y') %}btn-custom-blue{% else %}btn-custom-dark-blue{% endif%}"
                                href="{{ path('app_session_index', {'date': day|date('d-m-Y')}) }}">
                                 {{ day|date('l', "Europe/Paris") }} {{ day|date('d/m', "Europe/Paris") }}
                             </a>
@@ -37,7 +37,7 @@
                     {% endfor %}
 
                     <div class="col-1">
-                        <a class="btn btn-sm btn-secondary w-100 d-flex justify-content-center align-items-center"
+                        <a class="btn btn-sm btn-custom-dark-blue w-100 d-flex justify-content-center align-items-center"
                            href="{{ path('app_session_index', {'date': days|last|date('d-m-Y'), 'action': 'next'}) }}">
                             <span class="material-icons-outlined">navigate_next</span>
                         </a>

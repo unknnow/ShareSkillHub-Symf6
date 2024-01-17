@@ -38,12 +38,12 @@
 
 {% if editable != true %}
 <div class="row d-flex justify-content-center my-2">
-    <button class="btn btn-primary border-0 me-2" style="width: 10rem" type="submit">Sauvegarder</button>
+    <button class="btn btn-custom-blue border-0 me-2" style="width: 10rem" type="submit">Sauvegarder</button>
     <a class="btn btn-secondary border-0 ms-2" style="width: 10rem" href="{{ path('app_user_profil_show', {id: user.id}) }}">Annuler</a>
 </div>
 {% else %}
 <div class="row d-flex justify-content-center my-2">
-    <a class="btn btn-primary border-0 w-25" href="{{ path('app_user_profil_edit', {id: user.id}) }}">Modifier</a>
+    <a class="btn btn-custom-blue border-0 w-25" href="{{ path('app_user_profil_edit', {id: user.id}) }}">Modifier</a>
 </div>
 {% endif %}
 

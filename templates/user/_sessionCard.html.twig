@@ -4,7 +4,7 @@
 
         {% if session.ownerUser.id == app.user.id %}
             <div class="d-flex justify-content-center align-items-center">
-                <a class="text-success me-1" href="{{ path('app_session_edit', {id: session.id}) }}">
+                <a class="text-custom-green me-1" href="{{ path('app_session_edit', {id: session.id}) }}">
                     <span class="material-icons-outlined">edit</span>
                 </a>
 
@@ -20,7 +20,14 @@
     </div>
 
     <div class="card-footer text-muted d-flex justify-content-between">
-        <small>{{ 'Début : ' ~ session.startTime|date('d/m/y H:i') ~ ' - Fin : ' ~ session.endTime|date('d/m/y H:i') }}</small>
-        <small>{{ session.displayType }}</small>
+        <small class="d-flex justify-content-start align-items-center">
+            <span class="material-icons-outlined me-2">timer</span>
+            {{ 'Début : ' ~ session.startTime|date('d/m/y H:i') ~ ' - Fin : ' ~ session.endTime|date('d/m/y H:i') }}
+        </small>
+
+        <small class="d-flex justify-content-start align-items-center">
+            <span class="material-icons-outlined me-2">{% if session.type == 'online' %}public{% else %}public_off{% endif %}</span>
+            {{ session.displayType }}
+        </small>
     </div>
 </div>

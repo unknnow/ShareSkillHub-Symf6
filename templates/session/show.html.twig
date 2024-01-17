@@ -11,9 +11,9 @@
 
                     {% if session.ownerUser.id != app.user.id %}
                         {% if hasJoinedSession == false %}
-                        <a class="btn btn-sm btn-warning text-white" href="{{ path('app_session_join', {'id': session.id}) }}">Participer</a>
+                        <a class="btn btn-sm btn-custom-orange text-white" href="{{ path('app_session_join', {'id': session.id}) }}">Participer</a>
                         {% else %}
-                        <a class="btn btn-sm btn-danger text-white" href="{{ path('app_session_leave', {'id': session.id}) }}">Ne plus participer</a>
+                        <a class="btn btn-sm btn-custom-dark-blue text-white" href="{{ path('app_session_leave', {'id': session.id}) }}">Ne plus participer</a>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -80,7 +80,7 @@
                             {{ form_row(notationForm.comment) }}
 
                             <div class="d-flex justify-content-center align-items-center">
-                                <button class="btn btn-primary" type="submit">Envoyer</button>
+                                <button class="btn btn-custom-blue" type="submit">Envoyer</button>
                             </div>
 
                             {{ form_end(notationForm) }}

@@ -1,0 +1,15 @@
+@use "sass:map";
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$custom-colors: (
+  "custom-orange": #F36F4A,
+  "custom-green": #16A370,
+  "custom-blue": #4E57EF,
+  "custom-dark-blue": #45526F,
+  "custom-black": #222428,
+  "custom-gray": #F6F8FA,
+);
+
+$theme-colors: map.merge($theme-colors, $custom-colors);
