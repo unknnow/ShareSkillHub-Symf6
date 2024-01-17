@@ -1,0 +1,14 @@
+<form action="{{ path('app_user_index') }}" method="get" class="mb-2">
+    <div class="d-flex justify-content-center">
+        <div class="input-group w-100">
+            <input type="text" id="search" name="search" class="form-control rounded" placeholder="Utilisateur"
+                   value="{% if app.request.get('search') is not null %}{{ app.request.get('search') }}{% endif %}">
+
+            <div class="input-group-append ms-2">
+                <button class="btn btn-secondary d-flex justify-content-center align-items-center" type="submit">
+                    <span class="material-icons">search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
