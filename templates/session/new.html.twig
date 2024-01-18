@@ -4,8 +4,12 @@
 
 {% block body %}
     <div class="container my-4">
-        <h1>Ajouter une nouvelle session</h1>
+        <div class="card border-0 shadow">
+            <div class="card-body p-4">
+                <h1>Ajouter une nouvelle session</h1>
 
-        {{ include('session/_form.html.twig') }}
+                {{ include('session/_form.html.twig') }}
+            </div>
+        </div>
     </div>
 {% endblock %}

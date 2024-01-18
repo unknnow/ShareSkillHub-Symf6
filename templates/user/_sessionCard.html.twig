@@ -2,17 +2,21 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5>{{ session.subject }}</h5>
 
-        {% if session.ownerUser.id == app.user.id %}
-            <div class="d-flex justify-content-center align-items-center">
-                <a class="text-custom-green me-1" href="{{ path('app_session_edit', {id: session.id}) }}">
+        <div class="d-flex justify-content-center align-items-center">
+            <a class="text-custom-blue mx-1" href="{{ path("app_session_show", {id: session.id}) }}">
+                <span class="material-icons">visibility</span>
+            </a>
+
+            {% if session.ownerUser.id == app.user.id %}
+                <a class="text-custom-green mx-1" href="{{ path('app_session_edit', {id: session.id}) }}">
                     <span class="material-icons-outlined">edit</span>
                 </a>
 
-                <a class="text-danger ms-1" href="#">
+                <a class="text-danger mx-1" href="#">
                     <span class="material-icons">delete</span>
                 </a>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 
     <div class="card-body">

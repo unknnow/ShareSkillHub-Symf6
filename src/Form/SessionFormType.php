@@ -36,10 +36,16 @@ class SessionFormType extends AbstractType
             ])
             ->add('startTime', DateTimeType::class, [
                 'label' => 'Date de début de session',
+                'attr' => [
+                    'min' => (new \DateTime())->format('Y-m-d H:i:s'),
+                ],
                 'required' => true,
             ])
             ->add('endTime', DateTimeType::class, [
                 'label' => 'Date de fin de session',
+                'attr' => [
+                    'min' => (new \DateTime())->format('Y-m-d H:i:s'),
+                ],
                 'required' => true,
             ])
             ->add('participantUser', EntityType::class, [

@@ -161,8 +161,8 @@ class AppFixtures extends Fixture
             $session->setSubject(implode(" ", $this->faker->words()));
             $session->setDescription($this->faker->realText());
             $session->setType($types[array_rand($types)]);
-            $session->setStartTime(DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('+0 days', '+1 week')));
-            $session->setEndTime(DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('+1 week', '+2 week')));
+            $session->setStartTime(DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('+0 days', '+2 weeks')));
+            $session->setEndTime(DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween($session->getStartTime()->format('Y-m-d'), $session->getStartTime()->modify('+1 week')->format('Y-m-d'))));
 
             $usersTemp = $users;
             $ownerUser = array_rand($usersTemp);
