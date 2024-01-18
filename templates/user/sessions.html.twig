@@ -15,12 +15,45 @@
                     <a class="btn btn-custom-blue" href="{{ path('app_session_new') }}">Créer une nouvelle session</a>
                 </div>
 
-                <div class="row row-cols-2 justify-content-md-center mt-2">
-                    {% for session in user.createdSessions %}
-                        <div class="col pb-4">
-                            {{ include('user/_sessionCard.html.twig') }}
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-sessions-created-tab" data-bs-toggle="tab" data-bs-target="#nav-sessions-created" type="button" role="tab" aria-controls="nav-sessions-created" aria-selected="true">Organisateur</button>
+
+                        <button class="nav-link" id="nav-sessions-joined-tab" data-bs-toggle="tab" data-bs-target="#nav-sessions-joined" type="button" role="tab" aria-controls="nav-sessions-joined" aria-selected="false">Participant</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane pt-2 fade show active" id="nav-sessions-created" role="tabpanel" aria-labelledby="nav-sessions-created-tab">
+                        <div class="row row-cols-2 justify-content-md-center mt-2">
+                            {% if createdSessions|length %}
+                                {% for session in createdSessions %}
+                                    <div class="col pb-4">
+                                        {{ include('user/_sessionCard.html.twig') }}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="col">
+                                    <p>Aucune sessions créer</p>
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endfor %}
+                    </div>
+
+                    <div class="tab-pane pt-2 fade" id="nav-sessions-joined" role="tabpanel" aria-labelledby="nav-sessions-joined-tab">
+                        <div class="row row-cols-2 justify-content-md-center mt-2">
+                            {% if joinedSessions|length %}
+                                {% for session in joinedSessions %}
+                                    <div class="col pb-4">
+                                        {{ include('user/_sessionCard.html.twig') }}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="col">
+                                    <p>Aucune sessions rejoins</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

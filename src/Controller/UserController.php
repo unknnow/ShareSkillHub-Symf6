@@ -8,6 +8,7 @@ use App\Form\RecommandationFormType;
 use App\Form\UserProfilFormType;
 use App\Form\UserSecurityFormType;
 use App\Form\UserSkillsFormType;
+use App\Repository\SessionRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -125,10 +126,15 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/sessions', name: 'app_user_sessions', methods: ['GET', 'POST'])]
-    public function showSessions(User $user): Response
+    public function showSessions(User $user, SessionRepository $sessionRepository): Response
     {
+        $createdSessions = $sessionRepository->findAllNextCreatedSessions($user);
+        $joinedSessions = $sessionRepository->findAllNextJoinedSessions($user);
+
         return $this->render('user/sessions.html.twig', [
             'user' => $user,
+            'createdSessions' => $createdSessions,
+            'joinedSessions' => $joinedSessions,
         ]);
     }
 
