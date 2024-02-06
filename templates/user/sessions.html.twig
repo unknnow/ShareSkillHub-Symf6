@@ -22,6 +22,7 @@
                         <button class="nav-link" id="nav-sessions-joined-tab" data-bs-toggle="tab" data-bs-target="#nav-sessions-joined" type="button" role="tab" aria-controls="nav-sessions-joined" aria-selected="false">Participant</button>
                     </div>
                 </nav>
+
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane pt-2 fade show active" id="nav-sessions-created" role="tabpanel" aria-labelledby="nav-sessions-created-tab">
                         <div class="row row-cols-2 justify-content-md-center mt-2">
@@ -55,7 +56,35 @@
                         </div>
                     </div>
                 </div>
+
+                <hr>
+
+                <h3>Historique</h3>
+
+                <table id="datatable" class="table table-striped w-100">
+                    <thead>
+                        <tr>
+                            <th>Sujet</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for session in historique %}
+                            <tr>
+                                <td>{{ session.subject }}</td>
+                                <td>{{ session.description is null ? '-' : session.description }}</td>
+                                <td>{{ session.type }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('user_sessions') }}
 {% endblock %}
