@@ -130,11 +130,13 @@ class UserController extends AbstractController
     {
         $createdSessions = $sessionRepository->findAllNextCreatedSessions($user);
         $joinedSessions = $sessionRepository->findAllNextJoinedSessions($user);
+        $historique = $sessionRepository->findAllPreviousSessions($user);
 
         return $this->render('user/sessions.html.twig', [
             'user' => $user,
             'createdSessions' => $createdSessions,
             'joinedSessions' => $joinedSessions,
+            'historique' => $historique,
         ]);
     }
 

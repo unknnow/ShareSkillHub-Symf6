@@ -74,6 +74,19 @@ class SessionRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllPreviousSessions($currentUser): array
+    {
+        return $this->createQueryBuilder('S')
+            ->innerJoin('S.ownerUser', 'OU')
+            ->innerJoin('S.participantUser', 'PU')
+            ->andWhere('OU.email = :email OR PU.email = :email')
+            ->andWhere('S.startTime < NOW()')
+            ->setParameter('email', $currentUser->getEmail())
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 //    public function findOneBySomeField($value): ?Session
 //    {
 //        return $this->createQueryBuilder('s')
